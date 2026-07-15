@@ -1,12 +1,18 @@
 // import './style.css';
 import cwLogo from './assets/cw-logo.svg';
 
+const image = document.getElementById('image1') as HTMLImageElement;
+image.src = cwLogo;
+
 window.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('canvas1') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // canvas.width = window.innerWidth;
+  // canvas.height = window.innerHeight;
+  const padding = 50; // extra room so particles repelled by mouse aren't clipped
+  canvas.width = image.width + padding * 2;
+  canvas.height = image.height + padding * 2;
 
   class Particle {
     effect: Effect;
@@ -67,9 +73,6 @@ window.addEventListener('DOMContentLoaded', () => {
     };
   }
 
-  const image = document.getElementById('image1') as HTMLImageElement;
-  image.src = cwLogo;
-
   class Effect {
     // Canvas dimensions:
     public width: number;
@@ -99,12 +102,12 @@ window.addEventListener('DOMContentLoaded', () => {
       this.centerX = this.width / 2;
       this.centerY = this.height / 2;
 
-      window.addEventListener('mousemove', (event) => {
-        this.mouse.x = event.x;
-        this.mouse.y = event.y;
+      canvas.addEventListener('mousemove', (event) => {
+        this.mouse.x = event.offsetX;
+        this.mouse.y = event.offsetY;
       });
 
-      window.addEventListener('mouseout', () => {
+      canvas.addEventListener('mouseout', () => {
         this.mouse.x = null;
         this.mouse.y = null;
       });

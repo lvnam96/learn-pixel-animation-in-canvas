@@ -10,10 +10,18 @@
         margin: 0;
         padding: 0;
       }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100dvh;
+        min-width: 100dvw;
+        margin: 0;
+      }
     </style>
   </head>
   <body>
-    <canvas id="canvas1" style="position: absolute"></canvas>
+    <canvas id="canvas1"></canvas>
     <img alt="CreditorWatch logo" id="image1" width="360" height="62" style="display: none" decoding="async" />
     <!-- <div class="controls" style="position: absolute; z-index: 100"><button id="warpButton">Warp</button></div> -->
     <script type="module" src="/src/main.ts"></script>

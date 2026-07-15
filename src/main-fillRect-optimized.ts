@@ -1,10 +1,16 @@
 import cwLogo from './assets/cw-logo.svg';
 
+const image = document.getElementById('image1') as HTMLImageElement;
+image.src = cwLogo;
+
 const canvas = document.getElementById('canvas1') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-const width = (canvas.width = window.innerWidth);
-const height = (canvas.height = window.innerHeight);
+// const width = (canvas.width = window.innerWidth);
+// const height = (canvas.height = window.innerHeight);
+const padding = 50; // extra room so particles repelled by mouse aren't clipped
+const width = (canvas.width = image.width + padding * 2);
+const height = (canvas.height = image.height + padding * 2);
 
 // Physics constants — hoisted for JIT inlining
 const gap = 1;
@@ -17,11 +23,11 @@ const mouseRadiusSq = mouseRadius * mouseRadius;
 let mouseX = -1e6;
 let mouseY = -1e6;
 
-window.addEventListener('mousemove', (e: MouseEvent) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+canvas.addEventListener('mousemove', (e: MouseEvent) => {
+  mouseX = e.offsetX;
+  mouseY = e.offsetY;
 });
-window.addEventListener('mouseout', () => {
+canvas.addEventListener('mouseout', () => {
   mouseX = mouseY = -1e6;
 });
 
@@ -34,9 +40,6 @@ let origY: Float32Array;
 let velX: Float32Array;
 let velY: Float32Array;
 let colors: string[];
-
-const image = document.getElementById('image1') as HTMLImageElement;
-image.src = cwLogo;
 
 image.addEventListener('load', () => {
   const centerX = width >> 1;
